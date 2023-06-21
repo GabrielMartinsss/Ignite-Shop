@@ -3,31 +3,42 @@ import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
 
-import { HomeContainer, Product } from "../styles/pages/home";
+import { Footer, CarrocelContainer, Product, HomeContainer } from "../styles/pages/home";
 import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
+import { Handbag } from '@phosphor-icons/react'
 
 import { stripe } from "../lib/stripe";
 import Stripe from "stripe";
+import { useContext } from "react";
+import { BagContext } from "@/context/BagContext";
+import { Header } from "@/components/Header";
 
-
-interface HomeProps {
+interface ProductProps {
   products: {
     id: string
     name: string
     imageUrl: string
     price: string
+    description: string
+    defaultPriceId: string
   }[]
 }
 
-export default function Home({ products }: HomeProps) {
+export default function Home({ products }: ProductProps) {
+  const { addProductToBag } = useContext(BagContext)
+
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3,
       spacing: 48,
     },
-    
   })
+
+  function handleAddProductToBag(product: any) {
+    console.log(product)
+    addProductToBag(product)
+  }
 
   return (
     <>
@@ -35,21 +46,31 @@ export default function Home({ products }: HomeProps) {
         <title>Home | Ignite Shop</title>
       </Head>
 
-      <HomeContainer ref={sliderRef} className="keen-slider">
-        {products.map(product => {
-          return (
-            <Link href={`/product/${product.id}`}  key={product.id} prefetch={false} >    
-              <Product className="keen-slider__slide">
-                <Image src={product.imageUrl} width={520} height={480} alt="" />
-                <footer>
-                  <strong>{product.name}</strong>
-                  <span>{product.price}</span>
-                </footer>
-              </Product>
-            </Link>
-          )
-        })}  
+      <Header />
+
+      <HomeContainer>
+        <CarrocelContainer ref={sliderRef} className="keen-slider">
+          {products.map(product => {
+            return (
+                <Product className="keen-slider__slide" key={product.id}>
+                  <Link href={`/product/${product.id}`}   prefetch={false} >    
+                    <Image src={product.imageUrl} width={520} height={480} alt="" />
+                  </Link>
+                  <Footer>
+                    <div>
+                      <strong>{product.name}</strong>
+                      <span>{product.price}</span>
+                    </div>
+                    <button onClick={() => handleAddProductToBag(product)}>
+                      <Handbag size={32} color='#FFF' />
+                    </button>
+                  </Footer>
+                </Product>
+            )
+          })}  
+        </CarrocelContainer>
       </HomeContainer>
+
     </>
   )
 }

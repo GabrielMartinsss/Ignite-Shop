@@ -19,8 +19,10 @@ Utilização do Stripe e sua API, tanto para cadastro de produtos quanto checkou
 <hr/>
 <h4 align='center'>Product Page</h4>
 <p align='center'><img src='./src/assets/@finished/Product.png' alt=''></p>
+<hr>
 <h4 align='center'>Purchase Page</h4>
 <p align='center'><img src='./src/assets/@finished/Purchase.png' alt=''></p>
+<hr>
 <h4 align='center'>Stripe Checkout</h4>
 <p align='center'></p>
 <p align='center'><img src='./src/assets/@finished/Stripe.png' alt=''></p>

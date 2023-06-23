@@ -49,10 +49,12 @@ export default function Product({ product }: ProductProps) {
     addProductToBag(product)
   }
 
+  const pageTitle = `${product.name} | Ignite Shop`
+  
   return (
     <>
       <Head>
-        <title>{product.name} | Ignite Shop</title>
+        <title>{pageTitle}</title>
       </Head>
 
       <Header />
@@ -90,7 +92,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<any, { id: string }> = async ({ params }) => {
   const productId = params!.id
-  console.log(productId)
 
   const product = await stripe.products.retrieve(productId, {
     expand: ['default_price']

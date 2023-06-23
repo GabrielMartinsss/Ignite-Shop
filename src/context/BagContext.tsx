@@ -12,7 +12,8 @@ interface ProductProps {
 
 interface BagContextType {
   bagProducts: ProductProps[]
-  addProductToBag: ({id, name, imageUrl, price}: ProductProps) => void
+  addProductToBag: (product: ProductProps) => void
+  removeProductFromBag: (id: string) => void
 }
 
 interface BagContextProviderProps {
@@ -24,15 +25,27 @@ export const BagContext = createContext({} as BagContextType)
 export function BagContextProvider({ children }: BagContextProviderProps) {
   const [bagProducts, setBagProducts] = useState<ProductProps[]>([])
 
-  function addProductToBag(product: ProductProps){
-    setBagProducts(state => [...state, product])
-    console.log(bagProducts)
+  function addProductToBag(product: ProductProps) {
+    const isProductAlreadyInBag = bagProducts.find(p => p.id === product.id)
+
+    if (!isProductAlreadyInBag) {
+      setBagProducts(state => [...state, product])
+    }
   }
+
+  function removeProductFromBag(id: string) {
+    const newBagProducts = bagProducts.filter(product => {
+      return product.id !== id
+    })
+    setBagProducts(newBagProducts)
+  }
+
   return (
     <BagContext.Provider 
       value={{ 
         bagProducts,
-        addProductToBag 
+        addProductToBag,
+        removeProductFromBag
       }}>
       {children}
     </BagContext.Provider>

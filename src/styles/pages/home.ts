@@ -24,7 +24,6 @@ export const Product = styled('div', {
 
   overflow: 'hidden',
   borderRadius: 8,
-  // padding: '0.25rem',
   
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   cursor: 'pointer',
@@ -43,7 +42,9 @@ export const Product = styled('div', {
       transform: 'translateY(0%)',
       opacity: 1,
     }
-  }
+  },
+
+
 })
 
 export const Footer = styled('footer', {

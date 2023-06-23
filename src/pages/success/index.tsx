@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Stripe from "stripe";
 
+import logoImg from '@/assets/logo.svg'
+
 interface SuccessProps {
   customerName: string
   products: [
@@ -17,16 +19,18 @@ interface SuccessProps {
   
 }
 
+const pageTitle = 'Compra efetuada | Ignite Shop'
+
 export default function Success({ customerName, products }: SuccessProps) {
   return (
     <>
       <Head>
-        <title>Compra efetuada | Ignite Shop</title>
+        <title>{pageTitle}</title>
         <meta name="robots" content="noindex" />
       </Head>
       <SuccessContainer>
-        <h1>Compra efetuada</h1>
-        
+        <Image src={logoImg} alt=''/>
+
         <ImagesContainer>
           {products.map((product) => {
             return (
@@ -37,8 +41,7 @@ export default function Success({ customerName, products }: SuccessProps) {
           })}
         </ImagesContainer>
 
-        
-
+        <h1>Compra efetuada</h1>
         <p>Uhuul <strong>{customerName}</strong>, sua compra de {products.length} camisetas já está a caminho da sua casa</p>
 
         <Link href='/'>Voltar ao catálogo</Link>

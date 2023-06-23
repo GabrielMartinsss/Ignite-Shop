@@ -6,9 +6,6 @@ import axios from 'axios'
 import { useContext } from 'react'
 import { BagContext } from '@/context/BagContext'
 import Image from 'next/image'
-import { GetServerSideProps, GetStaticProps } from 'next'
-import { stripe } from '@/lib/stripe'
-import Stripe from 'stripe'
 
 interface ProductProps {
   product: {
@@ -21,8 +18,8 @@ interface ProductProps {
   }
 }
 
-export function BagDetailsModal({ product }: ProductProps) {
-  const { bagProducts } = useContext(BagContext)
+export function BagDetailsModal() {
+  const { bagProducts, removeProductFromBag } = useContext(BagContext)
 
   const prices = bagProducts.map(product => {
     let numberPrice = product.price.split(/\s/)
@@ -52,6 +49,10 @@ export function BagDetailsModal({ product }: ProductProps) {
     } 
   }
 
+  function handleRemoveProductFromBag(id: string) {
+    removeProductFromBag(id)
+  }
+
   return (
     <Dialog.Portal>
       <Overlay />
@@ -72,7 +73,7 @@ export function BagDetailsModal({ product }: ProductProps) {
               <div>
                 <h3>{product.name}</h3>
                 <strong>{product.price}</strong>
-                <span>Remover</span>
+                <button onClick={() => handleRemoveProductFromBag(product.id)}>Remover</button>
               </div>
             </Product>
             )

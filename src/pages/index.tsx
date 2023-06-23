@@ -36,14 +36,15 @@ export default function Home({ products }: ProductProps) {
   })
 
   function handleAddProductToBag(product: any) {
-    console.log(product)
     addProductToBag(product)
   }
+
+  const pageTitle = 'Home | Ignite Shop'
 
   return (
     <>
       <Head>
-        <title>Home | Ignite Shop</title>
+        <title>{pageTitle}</title>
       </Head>
 
       <Header />
@@ -90,7 +91,8 @@ export const getStaticProps: GetStaticProps = async () => {
       price: new Intl.NumberFormat('pt-BR', {
         style: 'currency',
         currency: 'BRL',
-      }).format(price.unit_amount ? price.unit_amount / 100 : 0)
+      }).format(price.unit_amount ? price.unit_amount / 100 : 0),
+      defaultPriceId: price.id
     }
   })
 

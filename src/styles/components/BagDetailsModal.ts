@@ -44,6 +44,13 @@ export const Content = styled(Dialog.Content, {
     fontSize: '$lg',
     fontWeight: 'bold',
     color: '$white',
+
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+
+    '&:hover': {
+      filter: 'brightness(0.85)',
+    },
   }
 })
 
@@ -102,10 +109,18 @@ export const Product = styled('div', {
       color: '$gray100',
     },
 
-    span: {
+    button: {
+      display: 'flex',
+      justifyContent: 'flex-start',
+
+      width: 'fit-content',
+      border: 0,
+      background: 'transparent',
+
       fontWeight: 'bold',
       color: '$green500',
-
+      
+      
       cursor: 'pointer',
 
       '&:hover': {
